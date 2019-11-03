@@ -1,0 +1,70 @@
+package aula09;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
+public class aula09 extends JFrame  {
+
+private JList colorList;
+    public JList copyList;
+    private JButton copiar;
+    private JButton apagar;
+
+      private static final String[] colorNames ={"Black","Blue","Cyan","Dark Gray","Gray", "Green",
+        "Ligth Gray","Magenta","Orange","Pink","Red","White","Yellow"};
+      private JButton btnNewButton;
+
+      public aula09(){
+          super("Seleção Multipla");
+          getContentPane().setLayout(null);
+          colorList = new JList(colorNames);
+          colorList.setVisibleRowCount(5);
+          colorList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+          JScrollPane scrollPane = new JScrollPane(colorList);
+          scrollPane.setBounds(48, 5, 70, 82);
+          getContentPane().add(scrollPane);
+          copiar = new JButton("Copiar >>");
+          copiar.setBounds(155, 7, 83, 29);
+          apagar = new JButton ("Apagar <<");
+          copiar.addActionListener(new ActionListener() {
+@Override
+              public void actionPerformed(ActionEvent ae) {
+                  copyList.setListData(colorList.getSelectedValues());
+              }              
+          });
+          getContentPane().add(copiar);
+             
+             btnNewButton = new JButton("Apagar");
+             btnNewButton.setBounds(155, 58, 83, 29);
+             btnNewButton.addActionListener(new ActionListener() {
+             	public void actionPerformed(ActionEvent arg0) {
+             		copyList.setModel(new DefaultListModel());
+             		DefaultListModel model = (DefaultListModel)copyList.getModel();
+             		model.removeAllElements();
+             	}
+             });
+             getContentPane().add(btnNewButton);
+             copyList = new JList();
+             copyList.setVisibleRowCount(5);
+             copyList.setFixedCellWidth(100);
+             copyList.setFixedCellHeight(15);
+             copyList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+             JScrollPane scrollPane_1 = new JScrollPane(copyList);
+             scrollPane_1.setBounds(283, 7, 102, 77);
+             getContentPane().add(scrollPane_1);
+          }
+           public static void main(String[] args) {
+           aula09 tela = new aula09();
+           tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+           tela.setSize(350, 150);
+           tela.setVisible(true);
+    }
+      }
