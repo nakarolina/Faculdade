@@ -1,0 +1,31 @@
+package thread_sinc;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class Teste {
+
+    public static void main(String[] args) {
+        Thread_sinc compartilhado = new Thread_sinc(6);
+
+        ArrayWriter write1 = new ArrayWriter(1, compartilhado);
+        ArrayWriter write2 = new ArrayWriter(11, compartilhado);
+        try {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            executor.execute(write1);
+            executor.execute(write2);
+
+            executor.shutdown();
+
+            boolean tarefa = executor.awaitTermination(1, TimeUnit.MINUTES);
+            if (tarefa) {
+                System.out.println(compartilhado);
+            } else {
+                System.out.printf("esperando o tempo para terminar");
+            }
+        } catch (InterruptedException e) {
+        }
+    }
+}
