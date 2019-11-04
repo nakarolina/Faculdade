@@ -1,0 +1,18 @@
+package thread_sinc;
+
+public class ArrayWriter implements Runnable{
+    private Thread_sinc arrayCompartilhado;
+    private int initValor;
+    
+    public ArrayWriter(int valor, Thread_sinc array){
+       initValor = valor;
+       arrayCompartilhado = array;
+    }
+    
+    public void run(){
+      for (int i = initValor; i< initValor+3; i++){
+          arrayCompartilhado.add(i);
+      }
+    }
+}
+
