@@ -1,0 +1,31 @@
+package thread_sinc;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class Thread_sinc {
+    private int[] array;
+    private int writeIndex = 0;
+    private final static Random generator = new Random();
+    
+    public Thread_sinc(int size){
+    array = new int[size];
+    }
+    public synchronized void add(int valor){
+    int posicao = writeIndex;
+    try{
+        Thread.sleep(generator.nextInt(500));
+    } catch (InterruptedException e){
+      e.printStackTrace();
+    }
+     array[posicao] = valor;
+     System.out.printf("%s insere  o elmento %d na posicao" + "%d. \n", 
+             Thread.currentThread().getName(), valor, posicao);
+     ++writeIndex;
+     System.out.printf("proxima posicao eh", writeIndex);
+    }
+    @Override
+    public String toString(){
+     return "converter para string"+Arrays.toString(array);
+    }   
+}
